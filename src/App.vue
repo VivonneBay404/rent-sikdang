@@ -1,17 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-layout>
+    <v-app-bar color="grey-lighten-2"></v-app-bar>
+    <v-navigation-drawer color="grey-darken-2" permanent></v-navigation-drawer>
+    <v-main>
+      <SikdangCard
+        :name="name"
+        :maxPeople="maxPeople"
+        :minSpend="minSpend"
+      ></SikdangCard>
+    </v-main>
+  </v-layout>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import HelloWorld from './components/HelloWorld.vue'
+import SikdangCard from "./components/SikdangCard.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    // HelloWorld
+    SikdangCard,
+  },
+  data() {
+    return {
+      name: "송흥",
+      maxPeople: 15,
+      minSpend: 100,
+    };
+  },
+};
 </script>
 
 <style>
