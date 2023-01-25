@@ -1,5 +1,10 @@
 <template>
-  <v-card class="mx-auto" max-width="250" min-width="250">
+  <v-card
+    class="mx-auto"
+    max-width="250"
+    min-width="250"
+    @click="$emit('click')"
+  >
     <v-img
       class="align-end text-white"
       height="200"

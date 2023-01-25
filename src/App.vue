@@ -1,31 +1,39 @@
 <template>
-  <v-layout>
-    <v-app-bar color="grey-lighten-2">
-      <router-link to="/sikdang">식당</router-link>
-      <router-link to="/about-us">about us</router-link>
+  <v-app>
+    <v-app-bar app>
+      <router-link to="/sikdang">식당</router-link> |
+      <router-link to="/about">About</router-link>
     </v-app-bar>
 
+    <!-- Sizes your content based upon application components -->
     <v-main>
+      <!-- Provides the application the proper gutter -->
+
+      <!-- If using vue-router -->
       <router-view></router-view>
     </v-main>
-  </v-layout>
+  </v-app>
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: "App",
-};
-</script>
-
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
