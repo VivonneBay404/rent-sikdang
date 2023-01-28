@@ -23,17 +23,26 @@
         <v-btn>상담신청</v-btn>
       </v-col>
     </v-row>
-    <v-row>
-      <div>식당이름</div>
-      <div>최소주문금액</div>
-      <div>최대인원</div>
-    </v-row>
-    <p>{{ $route.params.id }}</p>
+
+    <div>식당이름 {{ sikdang.name }}</div>
+    <div>최소주문금액 {{ sikdang.minSpend }}</div>
+    <div>최대인원 {{ sikdang.maxPeople }}</div>
   </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      sikdang: {},
+    };
+  },
+  async mounted() {
+    this.sikdang = (
+      await this.$axios.get(`/sikdang/${this.$route.params.id}`)
+    ).data;
+  },
+};
 </script>
 
 <style>
