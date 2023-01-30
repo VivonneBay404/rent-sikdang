@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      category: ["베트남", "한식", "중식", "이태리"],
+      category: ["vietnamese", "korean", "chinese", "italian"],
     };
   },
   mounted() {},

@@ -14,7 +14,7 @@
           <v-col v-for="(sikdang, index) in sikdangs" :key="index">
             <SikdangCard
               v-bind="sikdang"
-              @click="onSikdangClicked(sikdang.id)"
+              @click="onSikdangClicked(sikdang._id)"
             />
           </v-col>
         </v-row>
@@ -58,7 +58,34 @@ export default {
   },
   async mounted() {
     // console.log(dummyData);
-    this.sikdangs = (await this.$axios.get("/sikdang")).data;
+    console.log("this.$route.query;", this.$route.query);
+
+    if (this.$route.query.category) {
+      Array.isArray(this.$route.query.category)
+        ? (this.selectedCategories = this.$route.query.category)
+        : (this.selectedCategories = [this.$route.query.category]);
+    }
+
+    // this.sikdangs = (
+    //   await this.$axios.get("/sikdang", {
+    //     params: this.$route.query,
+    //   })
+    // ).data;
+  },
+  watch: {
+    async selectedCategories() {
+      console.log(" this.selectedCategories ", this.selectedCategories);
+      this.sikdangs = (
+        await this.$axios.get("/sikdang", {
+          params: { category: this.selectedCategories },
+        })
+      ).data;
+      //selectedCategories가 변하면 route query에 push
+      this.$router
+        .push({ query: { category: this.selectedCategories } })
+        .catch(() => {});
+      console.log("router push ok");
+    },
   },
 };
 </script>

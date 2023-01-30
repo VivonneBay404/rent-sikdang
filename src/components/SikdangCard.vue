@@ -12,24 +12,21 @@
       cover
     >
     </v-img>
-    <v-card-title>{{ name }}</v-card-title>
-    <v-card-subtitle class="pt-4">최대인원 {{ maxPeople }}</v-card-subtitle>
+    <v-card-title>{{ name || "정보없음" }}</v-card-title>
+    <v-card-subtitle class="pt-4"
+      >최대인원 {{ maxPeople || "정보없음" }}</v-card-subtitle
+    >
 
     <v-card-text>
-      <div>최소주문금액: {{ minSpend }}만원</div>
+      <div>최소주문금액: {{ minSpend || "정보없음" }}만원</div>
     </v-card-text>
-    <v-chip> {{ category }} </v-chip>
+    <v-chip> {{ category || "정보없음" }} </v-chip>
   </v-card>
 </template>
 
 <script>
 export default {
-  props: {
-    name: String,
-    maxPeople: Number,
-    minSpend: Number,
-    category: String,
-  },
+  props: ["name", "maxPeople", "minSpend", "category"],
 };
 </script>
 
