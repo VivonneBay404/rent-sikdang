@@ -8,7 +8,10 @@
     <v-img
       class="align-end text-white"
       height="200"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+      :src="require(`../../public/images/sikdangs/${image}`)"
+      :alt="
+        require('../../public/images/sikdangs/shawnanggg-nmpW_WwwVSc-unsplash.jpg')
+      "
       cover
     >
     </v-img>
@@ -26,7 +29,7 @@
 
 <script>
 export default {
-  props: ["name", "maxPeople", "minSpend", "category"],
+  props: ["name", "maxPeople", "minSpend", "category", "image"],
 };
 </script>
 

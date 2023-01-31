@@ -7,11 +7,30 @@
             <SikdangSort
               @click="onCategoryClicked"
               :selectedCategories="selectedCategories"
-          /></v-navigation-drawer>
+            />
+            <v-divider />
+            <div class="my-5">
+              <h2>최대인원</h2>
+              <v-range-slider
+                class="my-10 mx-3"
+                v-model="maxPeopleRange"
+                step="10"
+                thumb-label="always"
+                @end="getSikdang"
+              ></v-range-slider>
+            </div>
+          </v-navigation-drawer>
         </v-col>
 
         <v-col>
-          <v-row v-if="sikdangs.length">
+          <v-row v-if="loading" justify="center">
+            <v-progress-circular
+              size="100"
+              color="primary"
+              indeterminate
+            ></v-progress-circular
+          ></v-row>
+          <v-row v-else-if="sikdangs.length">
             <v-col
               v-for="(sikdang, index) in sikdangs"
               :key="index"
@@ -23,6 +42,7 @@
               <SikdangCard
                 v-bind="sikdang"
                 @click="onSikdangClicked(sikdang._id)"
+                :image="sikdang?.photos[0]"
               />
             </v-col>
           </v-row>
@@ -52,11 +72,13 @@ export default {
   },
   data() {
     return {
+      loading: false,
       sikdangs: [],
       selectedCategories: [],
       page: 1,
       count: null,
       limit: 5,
+      maxPeopleRange: [0, 100],
     };
   },
   methods: {
@@ -80,7 +102,15 @@ export default {
       this.page = 1;
     },
     async getSikdang() {
-      const query = { category: this.selectedCategories, page: this.page };
+      this.loading = true;
+      const query = {
+        category: this.selectedCategories,
+        page: this.page,
+        maxPeople: {
+          gte: this.maxPeopleRange[0],
+          lte: this.maxPeopleRange[1],
+        },
+      };
       console.log("query", query);
       const data = (
         await this.$axios.get("/sikdang", {
@@ -88,6 +118,7 @@ export default {
         })
       ).data;
       this.sikdangs = data.sikdang;
+      this.loading = false;
       //해당 카테고리의 총합
       this.count = data.count;
       this.$router.push({ query: query }).catch(() => {});
@@ -120,6 +151,9 @@ export default {
     async page() {
       this.getSikdang();
     },
+    // async maxPeopleRange() {
+    //   this.getSikdang();
+    // },
   },
 };
 </script>
