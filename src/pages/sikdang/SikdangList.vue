@@ -111,18 +111,17 @@ export default {
           lte: this.maxPeopleRange[1],
         },
       };
-      console.log("query", query);
       const data = (
         await this.$axios.get("/sikdang", {
           params: query,
         })
       ).data;
-      this.sikdangs = data.sikdang;
       this.loading = false;
+      this.sikdangs = data.sikdang;
+
       //해당 카테고리의 총합
       this.count = data.count;
       this.$router.push({ query: query }).catch(() => {});
-      console.log("router push ok");
     },
   },
   async mounted() {

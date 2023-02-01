@@ -1,32 +1,40 @@
 <template>
   <v-container>
-    <p>디테일 페이지</p>
-    <v-icon icon="mdi-home" />
     <v-row>
       <v-col cols="7">
         <v-carousel>
           <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            cover
-          ></v-carousel-item>
-          <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
-            cover
-          ></v-carousel-item>
-          <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            v-for="(item, index) in sikdang.photos"
+            :key="index"
+            :src="require(`../../../public/images/sikdangs/${item}`)"
             cover
           ></v-carousel-item>
         </v-carousel>
       </v-col>
       <v-col>
-        <v-btn>상담신청</v-btn>
+        <v-row class="ma-4">
+          <v-col>
+            <v-row>
+              <p>식당이름</p>
+              <h1 class="ma-4">{{ sikdang.name || "정보없음" }}</h1>
+            </v-row>
+            <v-row>
+              <div>최소주문금액 {{ sikdang.minSpend }} 만원</div>
+            </v-row>
+            <v-row>
+              <div>최대인원 {{ sikdang.maxPeople }}</div>
+            </v-row>
+            <v-row>
+              <div>설명</div>
+              <p>{{ sikdang.description }}</p>
+            </v-row>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-btn class="ma-4">상담신청</v-btn>
+        </v-row>
       </v-col>
     </v-row>
-
-    <div>식당이름 {{ sikdang.name }}</div>
-    <div>최소주문금액 {{ sikdang.minSpend }}</div>
-    <div>최대인원 {{ sikdang.maxPeople }}</div>
   </v-container>
 </template>
 
