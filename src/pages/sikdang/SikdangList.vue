@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-content>
+    <v-main>
       <v-row>
         <v-col cols="2">
           <v-navigation-drawer permanent>
@@ -56,7 +56,7 @@
           total-visible="7"
         ></v-pagination>
       </div>
-    </v-content>
+    </v-main>
   </div>
 </template>
 

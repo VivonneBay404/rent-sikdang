@@ -1,8 +1,20 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <router-link to="/sikdang">식당</router-link> |
-      <router-link to="/about">About</router-link>
+      <v-row justify="space-between">
+        <v-col>
+          <router-link to="/sikdang">식당</router-link> |
+          <router-link to="/about">About</router-link>
+        </v-col>
+        <v-col v-if="$store.getters.token">
+          <v-avatar color="primary">
+            <v-icon dark> mdi-account-circle </v-icon>
+          </v-avatar>
+        </v-col>
+        <v-col v-else>
+          <LoginDialog />
+        </v-col>
+      </v-row>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -14,6 +26,15 @@
     </v-main>
   </v-app>
 </template>
+
+<script>
+import LoginDialog from "./components/LoginDialog.vue";
+export default {
+  components: {
+    LoginDialog,
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
