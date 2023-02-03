@@ -30,8 +30,10 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-row>
-          <v-btn class="ma-4">상담신청</v-btn>
+        <v-row justify="center">
+          <v-btn class="ma-4 primary" @click="onTalkBtnClicked()"
+            >상담신청☎️</v-btn
+          >
         </v-row>
       </v-col>
     </v-row>
@@ -39,12 +41,26 @@
 </template>
 
 <script>
+import { EventBus } from "../../utils/eventBus";
+
 export default {
   data() {
     return {
+      isLoginDialogOpen: false,
       sikdang: {},
     };
   },
+  methods: {
+    onTalkBtnClicked() {
+      this.isLoginDialogOpen = true;
+      if (this.$store.getters.token) {
+        //상담신청 http 통신
+      } else {
+        EventBus.$emit("loginDialog");
+      }
+    },
+  },
+
   async mounted() {
     this.sikdang = (
       await this.$axios.get(`/sikdang/${this.$route.params.id}`)

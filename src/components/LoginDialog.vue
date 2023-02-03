@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { EventBus } from "../utils/eventBus";
 export default {
   data() {
     return {
@@ -69,6 +70,11 @@ export default {
       //   password: this.password,
       // });
     },
+  },
+  created() {
+    EventBus.$on("loginDialog", () => {
+      this.dialog = true;
+    });
   },
 };
 </script>

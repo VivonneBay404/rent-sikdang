@@ -4,6 +4,9 @@ import SikdangList from "../pages/sikdang/SikdangList";
 import AboutUs from "../pages/aboutUs/AboutUs";
 import SikdangItem from "../pages/sikdang/SikdangItem";
 import SignUp from "../pages/signup/SignUp";
+import UserProfile from "../pages/UserProfile.vue";
+import store from "../store/index";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -23,12 +26,23 @@ const routes = [
   },
   { path: "/sikdang/:id", component: SikdangItem },
   { path: "/signup", component: SignUp },
+  { path: "/user", component: UserProfile, meta: { requiresAuth: true } },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && store.getters.token) {
+    next();
+  } else if (to.meta.requiresAuth && !store.getters.token) {
+    next("/sikdang");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -7,12 +7,12 @@
           <router-link to="/about">About</router-link>
         </v-col>
         <v-col v-if="$store.getters.token">
-          <v-avatar color="primary">
+          <v-avatar color="primary" @click="$router.push('/user')">
             <v-icon dark> mdi-account-circle </v-icon>
           </v-avatar>
         </v-col>
         <v-col v-else>
-          <LoginDialog />
+          <LoginDialog @ />
         </v-col>
       </v-row>
     </v-app-bar>
@@ -32,6 +32,9 @@ import LoginDialog from "./components/LoginDialog.vue";
 export default {
   components: {
     LoginDialog,
+  },
+  created() {
+    this.$store.dispatch("tryLogin");
   },
 };
 </script>
