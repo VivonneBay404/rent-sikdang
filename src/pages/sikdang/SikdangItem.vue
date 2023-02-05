@@ -51,10 +51,20 @@ export default {
     };
   },
   methods: {
-    onTalkBtnClicked() {
+    //로그인이 되어있으면 유저에 식당 넣음 아니면 로그인 다이얼로그 on
+    async onTalkBtnClicked() {
       this.isLoginDialogOpen = true;
       if (this.$store.getters.token) {
-        //상담신청 http 통신
+        console.log("this.$route", this.$route);
+        const res = await this.$axios.patch(
+          `user/${this.$route.params.id}/addSikdangToUser`,
+          { userId: this.$store.getters.userId }
+        );
+        if (res.statusText === "OK" || res.statusText === "Created") {
+          this.$toasted.success(
+            "상담신청 성공☺️. 프로필에서 확인할 수 있습니다."
+          );
+        }
       } else {
         EventBus.$emit("loginDialog");
       }

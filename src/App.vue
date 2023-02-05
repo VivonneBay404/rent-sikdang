@@ -1,20 +1,18 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-row justify="space-between">
-        <v-col>
-          <router-link to="/sikdang">식당</router-link> |
-          <router-link to="/about">About</router-link>
-        </v-col>
-        <v-col v-if="$store.getters.token">
-          <v-avatar color="primary" @click="$router.push('/user')">
-            <v-icon dark> mdi-account-circle </v-icon>
-          </v-avatar>
-        </v-col>
-        <v-col v-else>
-          <LoginDialog @ />
-        </v-col>
-      </v-row>
+      <v-btn text class="mx-4" @click="$router.push('/sikdang')"> 식당</v-btn>
+      <v-btn text class="mx-4" @click="$router.push('/about')"> About us</v-btn>
+
+      <v-spacer></v-spacer>
+      <div v-if="$store.getters.token">
+        <v-avatar color="primary" @click="$router.push('/user')">
+          <v-icon dark> mdi-account-circle </v-icon>
+        </v-avatar>
+      </div>
+      <div v-else>
+        <LoginDialog />
+      </div>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->

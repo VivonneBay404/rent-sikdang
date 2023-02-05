@@ -1,62 +1,60 @@
 <template>
   <div>
-    <v-main>
-      <v-row>
-        <v-col cols="2">
-          <v-navigation-drawer permanent>
-            <SikdangSort
-              @click="onCategoryClicked"
-              :selectedCategories="selectedCategories"
+    <v-row>
+      <v-col cols="3">
+        <v-navigation-drawer permanent absolute width="300">
+          <SikdangSort
+            @click="onCategoryClicked"
+            :selectedCategories="selectedCategories"
+          />
+          <v-divider />
+          <div class="ma-4 pa-4">
+            <p>최대인원</p>
+            <v-range-slider
+              class="my-15 mx-3"
+              v-model="maxPeopleRange"
+              step="10"
+              thumb-label="always"
+              @end="getSikdang"
+            ></v-range-slider>
+          </div>
+        </v-navigation-drawer>
+      </v-col>
+      <v-col class="my-5">
+        <v-row v-if="loading" justify="center">
+          <v-progress-circular
+            size="100"
+            color="primary"
+            indeterminate
+          ></v-progress-circular
+        ></v-row>
+        <v-row v-else-if="sikdangs.length">
+          <v-col
+            v-for="(sikdang, index) in sikdangs"
+            :key="index"
+            cols="12"
+            sm="6"
+            md="5"
+            lg="3"
+          >
+            <SikdangCard
+              v-bind="sikdang"
+              @click="onSikdangClicked(sikdang._id)"
+              :image="sikdang?.photos[0]"
             />
-            <v-divider />
-            <div class="my-5">
-              <h2>최대인원</h2>
-              <v-range-slider
-                class="my-10 mx-3"
-                v-model="maxPeopleRange"
-                step="10"
-                thumb-label="always"
-                @end="getSikdang"
-              ></v-range-slider>
-            </div>
-          </v-navigation-drawer>
-        </v-col>
+          </v-col>
+        </v-row>
+        <v-row v-else><h2>찾는 식당이 없습니다😱</h2></v-row>
+      </v-col>
+    </v-row>
 
-        <v-col>
-          <v-row v-if="loading" justify="center">
-            <v-progress-circular
-              size="100"
-              color="primary"
-              indeterminate
-            ></v-progress-circular
-          ></v-row>
-          <v-row v-else-if="sikdangs.length">
-            <v-col
-              v-for="(sikdang, index) in sikdangs"
-              :key="index"
-              cols="12"
-              sm="6"
-              md="5"
-              lg="3"
-            >
-              <SikdangCard
-                v-bind="sikdang"
-                @click="onSikdangClicked(sikdang._id)"
-                :image="sikdang?.photos[0]"
-              />
-            </v-col>
-          </v-row>
-          <v-row v-else><h2>찾는 식당이 없습니다😱</h2></v-row>
-        </v-col>
-      </v-row>
-      <div class="text-center">
-        <v-pagination
-          v-model="page"
-          :length="parseInt(count / limit) + 1"
-          total-visible="7"
-        ></v-pagination>
-      </div>
-    </v-main>
+    <div class="text-center">
+      <v-pagination
+        v-model="page"
+        :length="parseInt(count / limit) + 1"
+        total-visible="7"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 

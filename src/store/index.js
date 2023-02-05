@@ -7,85 +7,70 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    userEmail: null,
-    userName: null,
+    userId: null,
   },
   getters: {
     token(state) {
       return state.token;
     },
-    userEmail(state) {
-      return state.userEmail;
-    },
-    userName(state) {
-      return state.userName;
+
+    userId(state) {
+      return state.userId;
     },
   },
   mutations: {
     setUser(state, payload) {
       console.log("setUser payload", payload);
       state.token = payload.token;
-      state.userName = payload.name;
-      state.userEmail = payload.email;
+      state.userId = payload.userId;
 
       localStorage.setItem("token", state.token);
-      localStorage.setItem("userName", state.userName);
-      localStorage.setItem("userEmail", state.userEmail);
+      localStorage.setItem("userId", state.userId);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${payload.token}`;
     },
   },
   actions: {
     //local storage에 유저정보 있으면 로그인함
     tryLogin(context) {
       const token = localStorage.getItem("token");
-      const name = localStorage.getItem("userName");
-      const email = localStorage.getItem("userEmail");
+      const userId = localStorage.getItem("userId");
 
-      if (token && name && email) {
-        context.commit("setUser", { token, name, email });
+      if (token && userId) {
+        context.commit("setUser", { token, userId });
       }
     },
     //회원가입
     async signup(context, payload) {
-      try {
-        const res = await axios.post("/user/signup", payload);
-        console.log("login action res", res);
-        context.commit("setUser", {
-          token: res.data.token,
-          name: res.data.user.name,
-          email: res.data.user.email,
-        });
-      } catch (error) {
-        console.log(error);
+      const res = await axios.post("/user/signup", payload);
+      context.commit("setUser", {
+        token: res.data.token,
+        userId: res.data.user._id,
+      });
+      if (res.statusText === "Created") {
+        Vue.toasted.success("회원가입 성공");
       }
-
-      // if (!res) {
-      //   const error = new Error(res.message || "회원가입 실패");
-      //   throw error;
-      // }
     },
     //로그인
     async login(context, payload) {
       const res = await axios.post("/user/login", payload);
-      console.log("login action res", res);
       context.commit("setUser", {
         token: res.data.token,
-        name: res.data.user.name,
-        email: res.data.user.email,
+        userId: res.data.user._id,
       });
-      // if (!res.ok) {
-      //   const error = new Error(res.message || "로그인 실패");
-      //   throw error;
-      // }
+      if (res.statusText === "OK") {
+        Vue.toasted.success("로그인 성공");
+      }
     },
     logout(context) {
       context.commit("setUser", {
         token: null,
-        name: null,
-        email: null,
+        userId: null,
       });
       localStorage.removeItem("token");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userId");
+      Vue.toasted.success("로그아웃 성공");
     },
   },
   modules: {},

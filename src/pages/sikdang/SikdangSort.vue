@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-4 pa-4">
     <p>음식 카테고리</p>
     <v-chip
       :color="selectedCategories.length === 0 ? 'primary' : null"
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      category: ["vietnamese", "korean", "chinese", "italian"],
+      category: ["베트남", "한식", "중식", "이탈리아"],
     };
   },
   mounted() {},

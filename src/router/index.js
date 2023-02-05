@@ -35,6 +35,7 @@ const router = new VueRouter({
   routes,
 });
 
+//토큰이 필요한 라우트에 토큰이 없으면 sikdang 라우트로 이동
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && store.getters.token) {
     next();

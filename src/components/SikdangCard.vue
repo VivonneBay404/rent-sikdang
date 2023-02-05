@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto pb-4"
     max-width="250"
     min-width="250"
     @click="$emit('click')"
