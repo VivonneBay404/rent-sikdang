@@ -75,16 +75,16 @@ export default {
       selectedCategories: [],
       page: 1,
       count: null,
-      limit: 5,
+      limit: 8,
       maxPeopleRange: [0, 100],
     };
   },
   methods: {
     onSikdangClicked(id) {
-      // this.$router.push(`/sikdang/${id}`);
+      this.$router.push(`/sikdang/${id}`);
       //새로운 탭으로 열기
-      let route = this.$router.resolve({ path: `/sikdang/${id}` });
-      window.open(route.href, "_blank");
+      // let route = this.$router.resolve({ path: `/sikdang/${id}` });
+      // window.open(route.href, "_blank");
     },
     onCategoryClicked(id) {
       if (id === "전체") {
