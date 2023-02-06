@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="primary ma-4" dark v-bind="attrs" v-on="on">
+        <v-btn class="primary ma-4" large v-bind="attrs" v-on="on">
           login
         </v-btn>
       </template>

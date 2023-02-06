@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
+      <v-spacer></v-spacer>
       <v-btn text class="mx-4" @click="$router.push('/sikdang')"> 식당</v-btn>
       <v-btn text class="mx-4" @click="$router.push('/about')"> About us</v-btn>
 
@@ -13,13 +14,9 @@
       <div v-else>
         <LoginDialog />
       </div>
+      <v-spacer></v-spacer>
     </v-app-bar>
-
-    <!-- Sizes your content based upon application components -->
     <v-main>
-      <!-- Provides the application the proper gutter -->
-
-      <!-- If using vue-router -->
       <router-view></router-view>
     </v-main>
   </v-app>
