@@ -51,7 +51,7 @@
     <div class="text-center">
       <v-pagination
         v-model="page"
-        :length="parseInt(count / limit) + 1"
+        :length="Math.ceil(this.count / this.limit)"
         total-visible="7"
       ></v-pagination>
     </div>
@@ -104,6 +104,7 @@ export default {
       const query = {
         category: this.selectedCategories,
         page: this.page,
+        limit: this.limit,
         maxPeople: {
           gte: this.maxPeopleRange[0],
           lte: this.maxPeopleRange[1],

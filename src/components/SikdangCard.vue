@@ -8,7 +8,11 @@
     <v-img
       class="align-end text-white"
       height="200"
-      :src="require(`../../public/images/sikdangs/${image}`)"
+      :src="
+        image
+          ? require(`../../public/images/sikdangs/${image}`)
+          : require('../../public/images/sikdangs/shawnanggg-nmpW_WwwVSc-unsplash.jpg')
+      "
       :alt="
         require('../../public/images/sikdangs/shawnanggg-nmpW_WwwVSc-unsplash.jpg')
       "
