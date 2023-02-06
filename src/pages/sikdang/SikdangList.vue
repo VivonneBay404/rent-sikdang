@@ -81,10 +81,10 @@ export default {
   },
   methods: {
     onSikdangClicked(id) {
-      this.$router.push(`/sikdang/${id}`);
+      // this.$router.push(`/sikdang/${id}`);
       //새로운 탭으로 열기
-      // let route = this.$router.resolve({ path: `/sikdang/${id}` });
-      // window.open(route.href, "_blank");
+      let route = this.$router.resolve({ path: `/sikdang/${id}` });
+      window.open(route.href, "_blank");
     },
     onCategoryClicked(id) {
       if (id === "전체") {
@@ -123,8 +123,6 @@ export default {
     },
   },
   async mounted() {
-    // console.log(dummyData);
-    console.log("this.$route.query;", this.$route.query);
     //선택된 카테고리가 하나면 오브젝트로 들어옴
     if (this.$route.query.category) {
       Array.isArray(this.$route.query.category)
@@ -141,7 +139,6 @@ export default {
   },
   watch: {
     async selectedCategories() {
-      console.log(" this.selectedCategories ", this.selectedCategories);
       this.getSikdang();
       //selectedCategories가 변하면 route query에 push
     },
