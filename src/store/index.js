@@ -48,8 +48,8 @@ export default new Vuex.Store({
         token: res.data.token,
         userId: res.data.user._id,
       });
-      if (res.statusText === "Created") {
-        Vue.toasted.success("회원가입 성공");
+      if (res.data.status === "success") {
+        Vue.toasted.success(res.data.message);
       }
     },
     //로그인
@@ -59,8 +59,8 @@ export default new Vuex.Store({
         token: res.data.token,
         userId: res.data.user._id,
       });
-      if (res.statusText === "OK") {
-        Vue.toasted.success("로그인 성공");
+      if (res.data.status === "success") {
+        Vue.toasted.success(res.data.message);
       }
     },
     logout(context) {

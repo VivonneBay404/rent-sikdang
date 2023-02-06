@@ -60,9 +60,9 @@ export default {
           `user/${this.$route.params.id}/addSikdangToUser`,
           { userId: this.$store.getters.userId }
         );
-        if (res.statusText === "OK" || res.statusText === "Created") {
+        if (res.data.status === "success") {
           this.$toasted.success(
-            "상담신청 성공☺️. 프로필에서 확인할 수 있습니다."
+            "상담신청 성공☺️ 프로필에서 확인할 수 있습니다"
           );
         }
       } else {
@@ -72,9 +72,8 @@ export default {
   },
 
   async mounted() {
-    this.sikdang = (
-      await this.$axios.get(`/sikdang/${this.$route.params.id}`)
-    ).data;
+    const res = await this.$axios.get(`/sikdang/${this.$route.params.id}`);
+    this.sikdang = res.data.sikdang;
   },
 };
 </script>

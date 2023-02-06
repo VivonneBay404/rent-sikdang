@@ -2,6 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
+        <h2>사용자 정보</h2>
         <v-card class="ma-4 pa-4">
           <v-card-title>이름 {{ userName }}</v-card-title>
           <v-card-subtitle>이메일 {{ userEmail }}</v-card-subtitle>
@@ -10,7 +11,7 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col>
-        <h2>상담신청</h2>
+        <h2>상담신청한 식당</h2>
         <div v-if="loading">
           <v-progress-circular
             size="100"

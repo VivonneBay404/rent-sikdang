@@ -7,7 +7,14 @@ import store from "./store";
 import Toasted from "vue-toasted";
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = "https://rent-sikdang-api.onrender.com/api/v1";
+console.log("process env", process.env);
+if (process.env.NODE_ENV === "development") {
+  axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
+}
+if (process.env.NODE_ENV === "production") {
+  axios.defaults.baseURL = "https://rent-sikdang-api.onrender.com/api/v1";
+}
+
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
   "token"
 )}`;
